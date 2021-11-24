@@ -57,3 +57,45 @@
 2021-11-24 09:53:06,348 [Thread-4] [36mc.z.h.HikariDataSource[0;39m - HikariPool-1 - Shutdown completed. 
 2021-11-24 09:53:07,066 [restartedMain] [36mc.t.s.Application[0;39m - Starting Application using Java 15.0.2 on LAPTOP-HVK7614P with PID 4912 (D:\AkramSpringBoot\springboot_assesment2.0\target\classes started by ANAND in D:\AkramSpringBoot\springboot_assesment2.0) 
 2021-11-24 09:53:07,073 [restartedMain] [36mc.t.s.Application[0;39m - No active profile set, falling back to default profiles: default 
+2021-11-24 10:04:16,846 [restartedMain] [36mc.t.s.Application[0;39m - Starting Application using Java 15.0.2 on LAPTOP-HVK7614P with PID 12872 (D:\AkramSpringBoot\springboot_assesment2.0\target\classes started by ANAND in D:\AkramSpringBoot\springboot_assesment2.0) 
+2021-11-24 10:04:16,850 [restartedMain] [36mc.t.s.Application[0;39m - No active profile set, falling back to default profiles: default 
+2021-11-24 10:04:17,283 [restartedMain] [36mo.s.b.d.e.DevToolsPropertyDefaultsPostProcessor[0;39m - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable 
+2021-11-24 10:04:17,285 [restartedMain] [36mo.s.b.d.e.DevToolsPropertyDefaultsPostProcessor[0;39m - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG' 
+2021-11-24 10:04:19,903 [restartedMain] [36mo.s.d.r.c.RepositoryConfigurationDelegate[0;39m - Bootstrapping Spring Data JPA repositories in DEFAULT mode. 
+2021-11-24 10:04:20,121 [restartedMain] [36mo.s.d.r.c.RepositoryConfigurationDelegate[0;39m - Finished Spring Data repository scanning in 193 ms. Found 3 JPA repository interfaces. 
+2021-11-24 10:04:22,647 [restartedMain] [36mo.s.b.w.e.t.TomcatWebServer[0;39m - Tomcat initialized with port(s): 8081 (http) 
+2021-11-24 10:04:22,676 [restartedMain] [36mo.a.c.c.StandardService[0;39m - Starting service [Tomcat] 
+2021-11-24 10:04:22,677 [restartedMain] [36mo.a.c.c.StandardEngine[0;39m - Starting Servlet engine: [Apache Tomcat/9.0.54] 
+2021-11-24 10:04:23,078 [restartedMain] [36mo.a.c.c.C.[.[.[/][0;39m - Initializing Spring embedded WebApplicationContext 
+2021-11-24 10:04:23,079 [restartedMain] [36mo.s.b.w.s.c.ServletWebServerApplicationContext[0;39m - Root WebApplicationContext: initialization completed in 5790 ms 
+2021-11-24 10:04:23,860 [restartedMain] [36mo.h.j.i.u.LogHelper[0;39m - HHH000204: Processing PersistenceUnitInfo [name: default] 
+2021-11-24 10:04:24,002 [restartedMain] [36mo.h.Version[0;39m - HHH000412: Hibernate ORM core version 5.4.32.Final 
+2021-11-24 10:04:24,373 [restartedMain] [36mo.h.a.c.Version[0;39m - HCANN000001: Hibernate Commons Annotations {5.1.2.Final} 
+2021-11-24 10:04:24,856 [restartedMain] [36mc.z.h.HikariDataSource[0;39m - HikariPool-1 - Starting... 
+2021-11-24 10:04:24,870 [restartedMain] [36mc.z.h.u.DriverDataSource[0;39m - Registered driver with driverClassName=com.mysql.jdbc.Driver was not found, trying direct instantiation. 
+2021-11-24 10:04:25,289 [restartedMain] [36mc.z.h.HikariDataSource[0;39m - HikariPool-1 - Start completed. 
+2021-11-24 10:04:25,348 [restartedMain] [36mo.h.d.Dialect[0;39m - HHH000400: Using dialect: org.hibernate.dialect.MySQL55Dialect 
+2021-11-24 10:04:27,048 [restartedMain] [36mo.h.e.t.j.p.i.JtaPlatformInitiator[0;39m - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform] 
+2021-11-24 10:04:27,074 [restartedMain] [36mo.s.o.j.LocalContainerEntityManagerFactoryBean[0;39m - Initialized JPA EntityManagerFactory for persistence unit 'default' 
+2021-11-24 10:04:28,190 [restartedMain] [36mo.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration[0;39m - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning 
+2021-11-24 10:04:29,350 [restartedMain] [36mc.t.s.s.SecurityConfiguration[0;39m - THIRD STEP TO MAPPED THE GIVEN MATTCHERS 
+2021-11-24 10:04:29,352 [restartedMain] [36mo.s.s.w.DefaultSecurityFilterChain[0;39m - Will secure Ant [pattern='/v2/api-docs'] with [] 
+2021-11-24 10:04:29,353 [restartedMain] [36mo.s.s.w.DefaultSecurityFilterChain[0;39m - Will secure Ant [pattern='/swagger-resources/configuration/ui'] with [] 
+2021-11-24 10:04:29,354 [restartedMain] [36mo.s.s.w.DefaultSecurityFilterChain[0;39m - Will secure Ant [pattern='/swagger-resources'] with [] 
+2021-11-24 10:04:29,355 [restartedMain] [36mo.s.s.w.DefaultSecurityFilterChain[0;39m - Will secure Ant [pattern='/swagger-resources/configuration/security'] with [] 
+2021-11-24 10:04:29,355 [restartedMain] [36mo.s.s.w.DefaultSecurityFilterChain[0;39m - Will secure Ant [pattern='/swagger-ui.html'] with [] 
+2021-11-24 10:04:29,356 [restartedMain] [36mo.s.s.w.DefaultSecurityFilterChain[0;39m - Will secure Ant [pattern='/webjars/**'] with [] 
+2021-11-24 10:04:29,407 [restartedMain] [36mo.s.s.w.DefaultSecurityFilterChain[0;39m - Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@5b9df448, org.springframework.security.web.context.SecurityContextPersistenceFilter@4197e07b, org.springframework.security.web.header.HeaderWriterFilter@3c156d19, org.springframework.security.web.authentication.logout.LogoutFilter@58a15bbb, com.te.springboot.filter.CustomerAuthorizationFilter@3cc989fe, com.te.springboot.filter.CustumAuthenticationFilter@4fe04e9e, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@7eda98bd, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@411ad544, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@8f6d4d6, org.springframework.security.web.session.SessionManagementFilter@6bea9715, org.springframework.security.web.access.ExceptionTranslationFilter@24f33dcc, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@151f4f6b] 
+2021-11-24 10:04:29,512 [restartedMain] [36ms.d.s.w.PropertySourcedRequestMappingHandlerMapping[0;39m - Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)] 
+2021-11-24 10:04:30,200 [restartedMain] [36mo.s.b.d.a.OptionalLiveReloadServer[0;39m - LiveReload server is running on port 35729 
+2021-11-24 10:04:30,655 [restartedMain] [36mo.s.b.w.e.t.TomcatWebServer[0;39m - Tomcat started on port(s): 8081 (http) with context path '' 
+2021-11-24 10:04:30,657 [restartedMain] [36ms.d.s.w.p.DocumentationPluginsBootstrapper[0;39m - Context refreshed 
+2021-11-24 10:04:30,691 [restartedMain] [36ms.d.s.w.p.DocumentationPluginsBootstrapper[0;39m - Found 1 custom documentation plugin(s) 
+2021-11-24 10:04:30,739 [restartedMain] [36ms.d.s.w.s.ApiListingReferenceScanner[0;39m - Scanning for api listing references 
+2021-11-24 10:04:31,382 [restartedMain] [36mc.t.s.Application[0;39m - Started Application in 16.648 seconds (JVM running for 20.456) 
+2021-11-24 10:04:44,007 [http-nio-8081-exec-2] [36mo.a.c.c.C.[.[.[/][0;39m - Initializing Spring DispatcherServlet 'dispatcherServlet' 
+2021-11-24 10:04:44,008 [http-nio-8081-exec-2] [36mo.s.w.s.DispatcherServlet[0;39m - Initializing Servlet 'dispatcherServlet' 
+2021-11-24 10:04:44,014 [http-nio-8081-exec-2] [36mo.s.w.s.DispatcherServlet[0;39m - Completed initialization in 4 ms 
+2021-11-24 10:04:44,076 [http-nio-8081-exec-2] [36mc.t.s.f.CustumAuthenticationFilter[0;39m - Username is Abhishek Kumar And Password Is akr 
+2021-11-24 10:04:44,425 [http-nio-8081-exec-2] [36mc.t.s.s.CustomerServiceImpl[0;39m - EIGTH STEP LOAD METHOD EXCUTE ACCORDING TO THE  USERNAME YOU PROVIDE RETURN IT BACK TO THE INBUILT USER 
+2021-11-24 10:04:45,641 [http-nio-8081-exec-2] [36mc.t.s.s.CustomerServiceImpl[0;39m - return Load User Method Serive 
