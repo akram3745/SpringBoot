@@ -33,33 +33,37 @@ public class CustomerServiceImpl implements CustomerService, UserDetailsService 
 	private BankDaetailReposit reposit;
 	@Autowired
 	private AdminDao adminDao;
-	private Customer customer;
+	private static Customer customer;
 	private int count;
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(CustomerServiceImpl.class);
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		LOGGER.info("EIGTH STEP LOAD METHOD EXCUTE ACCORDING TO THE  USERNAME YOU PROVIDE RETURN IT BACK TO THE INBUILT USER");
 		Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
 		if (!username.equals("Bharath")) {
-			this.customer = customerDao.findByUsername(username);
+			customer = customerDao.findByUsername(username);
 			if (customer == null) {
 				LOGGER.error("User Not in Data Base");
 				throw new CustumException("Please Enter your Correct User Name");
 			}
 			authorities.add(new SimpleGrantedAuthority("USER"));
+			LOGGER.info("return Load User Method Serive");
 			return new User(customer.getUsername(), customer.getPassword(), authorities);
 		} else {
+			LOGGER.info("in else Load User Method Serive");
 			Admin admin = adminDao.findByUsername(username);
 			if (admin == null) {
 				LOGGER.error("User Not in Data Base");
 				throw new CustumException("Please Enter your Correct User Name");
 			}
-			System.out.println("adminSe");
+			LOGGER.info("before authoriti User Method Serive");
 			authorities.add(new SimpleGrantedAuthority("ADMIN"));
-			System.out.println("adminSe");
+			LOGGER.info("After authorities ALoad User Method Serive");
 			User user = new User(admin.getUsername(), admin.getPassword(), authorities);
 			System.out.println(user);
+			LOGGER.info("return user Load User Method Serive");
 			return user;
 		}
 	}
@@ -73,6 +77,7 @@ public class CustomerServiceImpl implements CustomerService, UserDetailsService 
 
 	@Override
 	public Message withDraw(double amount) {
+		LOGGER.info("WITHDRAW METHOD IS RUNNING");
 
 		if (count < 3) {
 			if (amount % 100 == 0) {
@@ -104,6 +109,7 @@ public class CustomerServiceImpl implements CustomerService, UserDetailsService 
 	@Override
 	public Message deposite(double amount) {
 
+		LOGGER.info("DEPOSITE METHOD IS RUNNING");
 		if (amount <= 100000) {
 			if (amount % 100 == 0) {
 				customer.setBalance(customer.getBalance() + amount * (1 - 0.00026));
@@ -126,6 +132,7 @@ public class CustomerServiceImpl implements CustomerService, UserDetailsService 
 
 	@Override
 	public Message showBalance() {
+		LOGGER.info("SHOW-BALANCE METHOD IS RUNNING");
 		if (customer == null || customer.getUsername() == null) {
 			throw new CustumException("Please Login First!!!");
 		}
@@ -134,11 +141,9 @@ public class CustomerServiceImpl implements CustomerService, UserDetailsService 
 		return new Message(HttpStatus.OK.value(), new Date(), false, "Your Balance is : " + customer2.getBalance(),
 				customer2);
 	}
-
-	/*
-	 * @Override public Message getAll() { List<Customer> list = dao.findAll();
-	 * LOGGER.info("ALL DATA OF CUSTOMER " + list); return new Message(false,
-	 * "ALL DATA OF CUSTOMER", list); }
-	 */
+     
+	public Customer getCustomer() {
+		return customer;
+	}
 
 }

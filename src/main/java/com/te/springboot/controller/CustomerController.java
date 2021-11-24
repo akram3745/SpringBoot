@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -44,9 +45,8 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import lombok.extern.slf4j.Slf4j;
 
-
 @RestController
-@RequestMapping("/secure/customer/")
+@RequestMapping("/api/v1/customer/")
 @Api(value = "/secure/customer", tags = "SpringBoot_Assessment2.0")
 public class CustomerController {
 
@@ -56,42 +56,41 @@ public class CustomerController {
 	private static final Logger LOGGER = LoggerFactory.getLogger(CustomerController.class);
 
 	@PutMapping(path = "/withdraw/{amount}")
-	@ApiOperation(value = "WithDraw Money", notes = "Withdraw Money",tags = "SpringBoot_Assessment2.0")
-	@ApiResponses(value = {@ApiResponse(code = 200,message = "Withdraw Successfully"),
+	@ApiOperation(value = "WithDraw Money", notes = "Withdraw Money", tags = "SpringBoot_Assessment2.0")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Withdraw Successfully"),
 			@ApiResponse(code = 404, message = "INVALID CUSTOMER ID"),
-			@ApiResponse(code = 403, message = "Access Denied")})
+			@ApiResponse(code = 403, message = "Access Denied") })
 	public ResponseEntity<Message> withdraw(@PathVariable("amount") double amount) {
 		LOGGER.info(amount + "Amount Successfully Withdraw  ");
 		return new ResponseEntity<Message>(service.withDraw(amount), HttpStatus.OK);
 	}
 
 	@PutMapping(path = "/deposite/{amount}")
-	@ApiOperation(value = "Deposite Money", notes = "Deposite Money",tags = "SpringBoot_Assessment2.0")
-	@ApiResponses(value = {@ApiResponse(code = 200,message = "Deposite Successfully"),
+	@ApiOperation(value = "Deposite Money", notes = "Deposite Money", tags = "SpringBoot_Assessment2.0")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Deposite Successfully"),
 			@ApiResponse(code = 404, message = "INVALID CUSTOMER ID"),
-			@ApiResponse(code = 403, message = "Access Denied")})
+			@ApiResponse(code = 403, message = "Access Denied") })
 	public ResponseEntity<Message> deposite(@PathVariable("amount") double amount) {
 		LOGGER.info(amount + "Amount Successfully Deposited  ");
 		return new ResponseEntity<Message>(service.deposite(amount), HttpStatus.OK);
 	}
 
 	@GetMapping("/balance")
-	@ApiOperation(value = "Total Money", notes = "Total Money",tags = "SpringBoot_Assessment2.0")
-	@ApiResponses(value = {@ApiResponse(code = 200,message = "Fetch Successfully"),
+	@ApiOperation(value = "Total Money", notes = "Total Money", tags = "SpringBoot_Assessment2.0")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Fetch Successfully"),
 			@ApiResponse(code = 404, message = "INVALID CUSTOMER ID"),
-			@ApiResponse(code = 403, message = "Access Denied")})
+			@ApiResponse(code = 403, message = "Access Denied") })
 	public ResponseEntity<Message> getBalance() {
 		return new ResponseEntity<Message>(service.showBalance(), HttpStatus.OK);
 	}
 
-	
-	
 	@GetMapping("/token/refresh")
-	@ApiOperation(value = "Generate new Access token", notes = "Generate new Access token",tags = "SpringBoot_Assessment2.0")
-	@ApiResponses(value = {@ApiResponse(code = 200,message = "Generate new 	Access token Successfully"),
+	@ApiOperation(value = "Generate new Access token", notes = "Generate new Access token", tags = "SpringBoot_Assessment2.0")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Generate new 	Access token Successfully"),
 			@ApiResponse(code = 404, message = "Refresh token is missing "),
-			@ApiResponse(code = 403, message = "Access Denied")})
-	public void refreashToken(HttpServletRequest request, HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
+			@ApiResponse(code = 403, message = "Access Denied") })
+	public void refreashToken(HttpServletRequest request, HttpServletResponse response)
+			throws JsonGenerationException, JsonMappingException, IOException {
 		String header = request.getHeader(AUTHORIZATION);
 		if (header != null && header.startsWith("Bearer ")) {
 			try {
@@ -104,13 +103,16 @@ public class CustomerController {
 				String access_token = JWT.create().withSubject(customer.getUsername())
 						.withExpiresAt(new Date(System.currentTimeMillis() + 10 * 60 * 1000))
 						.withIssuer(request.getRequestURI().toString())
-						.withClaim("roles",new ArrayList<>().add(new SimpleGrantedAuthority("USER")))
-						.sign(algorithm);
-				HashMap<String, String> tokens = new HashMap<>();
+						.withClaim("roles", new ArrayList<>().add(new SimpleGrantedAuthority("USER"))).sign(algorithm);
+				LinkedHashMap<String, Object> message = new LinkedHashMap<>();
+				LinkedHashMap<String, String> tokens = new LinkedHashMap();
 				tokens.put("access_token", access_token);
 				tokens.put("refresh_token", refresh_token);
+				message.put("error", false);
+				message.put("message", "Generate access token succesfully");
+				message.put("data", tokens);
 				response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-				new ObjectMapper().writeValue(response.getOutputStream(), tokens);
+				new ObjectMapper().writeValue(response.getOutputStream(), message);
 			} catch (Exception exception) {
 				response.setHeader("error", exception.getMessage());
 				response.setStatus(FORBIDDEN.value());
@@ -121,9 +123,7 @@ public class CustomerController {
 			}
 		} else
 			throw new RuntimeException("Refresh token is missing");
-		
-		
-	}
 
+	}
 
 }

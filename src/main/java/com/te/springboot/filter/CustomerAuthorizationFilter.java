@@ -17,6 +17,7 @@ import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -26,48 +27,67 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.te.springboot.exception.CustomAccessDeniedException;
+import com.te.springboot.service.CustomerServiceImpl;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 //@Component
-public class CustomerAuthorizationFilter extends  OncePerRequestFilter{
+public class CustomerAuthorizationFilter extends OncePerRequestFilter {
 	
-	
+	//FOLLOW THE LOG STATEMENT YOU WILL COME TO KNOW THE FLOW OF CODE EXECUTION
+
+	private CustomerServiceImpl serviceImpl;
+
+	private CustomAccessDeniedException exception;
+
+	public CustomerAuthorizationFilter(CustomerServiceImpl serviceImpl, CustomAccessDeniedException exception) {
+		this.serviceImpl = serviceImpl;
+		this.exception = exception;
+	}
+
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
-		if (request.getServletPath().equals("/secure/login")
-				|| request.getServletPath().equals("/secure/customer/token/refresh")) {
+		if (request.getServletPath().equals("/api/v1/login")
+				|| request.getServletPath().equals("/api/v1/customer/token/refresh")) {
 			filterChain.doFilter(request, response);
 		} else {
 			String header = request.getHeader("Authorization");
 			System.out.println(header);
 			if (header != null && header.startsWith("Bearer ")) {
 				try {
-					System.out.println("Autho");
 					String token = header.substring(7);
 					Algorithm algorithm = Algorithm.HMAC256("secret".getBytes());
 					JWTVerifier verifier = JWT.require(algorithm).build();
 					DecodedJWT decodedJWT = verifier.verify(token);
-					System.out.println("Hi");
 					String username = decodedJWT.getSubject();
+					if (!serviceImpl.getCustomer().getUsername().equals(username)) {
+						try {
+							exception.handle(request, response, new AccessDeniedException("UNAUTHORIZED ACCESS TOKEN"));
+						} catch (Exception exception2) {
+							System.out.println(exception2.getMessage());
+						}
+					}
 					String[] roles = decodedJWT.getClaim("roles").asArray(String.class);
 					Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
 					stream(roles).forEach(role -> authorities.add(new SimpleGrantedAuthority(role)));
 					UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
 							username, null, authorities);
 					SecurityContextHolder.getContext().setAuthentication(authenticationToken);
-				} catch (JWTDecodeException|AccessDeniedException  exception) {
-					response.setHeader("error", exception.getMessage());
-					response.setStatus(403);
-					System.out.println("err");
-					HashMap<String, String> error = new HashMap<>();
-					error.put("error", exception.getMessage());
-					response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-					new ObjectMapper().writeValue(response.getOutputStream(), error);
+					log.info("AFTER SECURITY CONTEXT");
+					filterChain.doFilter(request, response);
+				} catch (Exception exception2) {
+
+				 exception.handle(request, response, new AccessDeniedException("YOUR TOKEN IS EXPIRED"));
+
 				}
-			} 
+			} else {
+				log.info("AFTER TRY CATCH BLOCK IN AUTHORIZATION CLASS");
 				filterChain.doFilter(request, response);
+			}
 		}
 	}
-
 
 }

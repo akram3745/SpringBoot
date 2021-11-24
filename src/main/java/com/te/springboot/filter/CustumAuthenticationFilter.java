@@ -24,24 +24,26 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.te.springboot.exception.CustomAccessDeniedException;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class CustumAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
-
-	public CustumAuthenticationFilter(AuthenticationManager authenticationManager) {
-		this.authenticationManager = authenticationManager;
-	}
-
+	
 	@Autowired
 	private final AuthenticationManager authenticationManager;
+	
+	private CustomAccessDeniedException exception;
 
-	/*
-	 * public CustomAuthenticattionFilter(AuthenticationManager
-	 * authenticationManager) { this.authenticationManager = authenticationManager;
-	 * }
-	 */
+	public CustumAuthenticationFilter(AuthenticationManager authenticationManager,CustomAccessDeniedException exception) {
+		this.authenticationManager = authenticationManager;
+		this.exception = exception;
+	}
+
+	
+
+	
 	private String username;
 
 	@Override
@@ -54,6 +56,7 @@ public class CustumAuthenticationFilter extends UsernamePasswordAuthenticationFi
 				password);
 		System.out.println(authenticationToken);
 		Authentication authenticate = authenticationManager.authenticate(authenticationToken);
+		
 		System.out.println(authenticate);
 		return authenticate;
 	}
@@ -61,7 +64,6 @@ public class CustumAuthenticationFilter extends UsernamePasswordAuthenticationFi
 	@Override
 	protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain,
 			Authentication authentication) throws IOException, ServletException {
-		System.out.println("hello");
 		User user = (User) authentication.getPrincipal();
 		System.out.println(user);
 		Algorithm algorithm = Algorithm.HMAC256("secret".getBytes());

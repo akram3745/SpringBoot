@@ -41,8 +41,10 @@ public class SwaggerConfiguration {
 	private ApiInfo apiInfo() {
 		return new ApiInfo("Spring Boot Rest API's With JWT Based Authentication and Authorization",
 				"Spring Boot Along With JWT Rest API Documentation", "1", "Terms of Service",
-				new Contact("Akram Ladaf", "www.example.net", "34akramash@gmail.com"), "License of API",
-				"API license URL", Collections.emptyList());
+				new Contact("Akram Ladaf",
+						"https://github.com/akram3745/SpringBoot-BankApplication-With-JWTSecurity-authentication-And-Swager",
+						"34akramash@gmail.com"),
+				"License of API", "API license URL", Collections.emptyList());
 	}
 
 	private SecurityContext securityContext() {

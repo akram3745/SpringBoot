@@ -25,7 +25,7 @@ import io.swagger.annotations.ApiResponses;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
-@RequestMapping(path = "/secure/admin/")
+@RequestMapping(path = "/api/v1/admin/")
 public class AdminController {
 
 	@Autowired
