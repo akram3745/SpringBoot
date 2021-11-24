@@ -99,3 +99,6 @@
 2021-11-24 10:04:44,076 [http-nio-8081-exec-2] [36mc.t.s.f.CustumAuthenticationFilter[0;39m - Username is Abhishek Kumar And Password Is akr 
 2021-11-24 10:04:44,425 [http-nio-8081-exec-2] [36mc.t.s.s.CustomerServiceImpl[0;39m - EIGTH STEP LOAD METHOD EXCUTE ACCORDING TO THE  USERNAME YOU PROVIDE RETURN IT BACK TO THE INBUILT USER 
 2021-11-24 10:04:45,641 [http-nio-8081-exec-2] [36mc.t.s.s.CustomerServiceImpl[0;39m - return Load User Method Serive 
+2021-11-24 11:22:00,276 [Thread-4] [36mo.s.o.j.LocalContainerEntityManagerFactoryBean[0;39m - Closing JPA EntityManagerFactory for persistence unit 'default' 
+2021-11-24 11:22:00,321 [Thread-4] [36mc.z.h.HikariDataSource[0;39m - HikariPool-1 - Shutdown initiated... 
+2021-11-24 11:22:00,349 [Thread-4] [36mc.z.h.HikariDataSource[0;39m - HikariPool-1 - Shutdown completed. 
